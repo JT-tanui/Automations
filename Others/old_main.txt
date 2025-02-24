@@ -1,0 +1,253 @@
+import os
+import sys
+import pandas as pd
+import pdfkit
+import PyPDF2
+from datetime import datetime
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
+                           QHBoxLayout, QLabel, QLineEdit, QComboBox,
+                           QPushButton, QFileDialog, QCheckBox, QMessageBox)
+from PyQt5.QtCore import Qt
+
+class CertificateGenerator(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+        self.certificate_number = 1
+
+    def initUI(self):
+        self.setWindowTitle('Certificate Generator')
+        self.setGeometry(100, 100, 800, 600)
+
+        # Create main widget and layout
+        main_widget = QWidget()
+        self.setCentralWidget(main_widget)
+        layout = QVBoxLayout(main_widget)
+
+        # File input section
+        file_section = QWidget()
+        file_layout = QHBoxLayout(file_section)
+        self.file_path = QLineEdit()
+        file_button = QPushButton('Choose File')
+        file_button.clicked.connect(self.choose_file)
+        file_layout.addWidget(QLabel('Input File:'))
+        file_layout.addWidget(self.file_path)
+        file_layout.addWidget(file_button)
+        layout.addWidget(file_section)
+
+        # Manual input section
+        input_section = QWidget()
+        input_layout = QVBoxLayout(input_section)
+
+        # Award type selection
+        award_layout = QHBoxLayout()
+        self.award_type = QComboBox()
+        self.award_type.addItems([
+            'Perfect Attendance Award',
+            'Distinguished Excellence in Classroom Conduct',
+            'Student Ambassador Award',
+            'House Points Achievement',
+            'Academic Excellence Award',
+            'Custom Award'
+        ])
+        award_layout.addWidget(QLabel('Award Type:'))
+        award_layout.addWidget(self.award_type)
+        input_layout.addLayout(award_layout)
+
+        # Student name input
+        name_layout = QHBoxLayout()
+        self.student_name = QLineEdit()
+        name_layout.addWidget(QLabel('Student Name:'))
+        name_layout.addWidget(self.student_name)
+        input_layout.addLayout(name_layout)
+
+        # Signatory details
+        signatory_layout = QHBoxLayout()
+        self.signatory_name = QLineEdit()
+        self.signatory_position = QLineEdit()
+        signatory_layout.addWidget(QLabel('Signatory Name:'))
+        signatory_layout.addWidget(self.signatory_name)
+        signatory_layout.addWidget(QLabel('Position:'))
+        signatory_layout.addWidget(self.signatory_position)
+        input_layout.addLayout(signatory_layout)
+
+        # Date selection
+        date_layout = QHBoxLayout()
+        self.award_date = QLineEdit(datetime.now().strftime('%d %B %Y'))
+        date_layout.addWidget(QLabel('Award Date:'))
+        date_layout.addWidget(self.award_date)
+        input_layout.addLayout(date_layout)
+
+        # Certificate number option
+        number_layout = QHBoxLayout()
+        self.include_number = QCheckBox('Include Certificate Number')
+        self.include_number.setChecked(True)
+        number_layout.addWidget(self.include_number)
+        input_layout.addLayout(number_layout)
+
+        layout.addWidget(input_section)
+
+        # Buttons
+        button_layout = QHBoxLayout()
+        generate_single = QPushButton('Generate Single Certificate')
+        generate_single.clicked.connect(self.generate_single_certificate)
+        generate_batch = QPushButton('Generate from File')
+        generate_batch.clicked.connect(self.generate_batch_certificates)
+        button_layout.addWidget(generate_single)
+        button_layout.addWidget(generate_batch)
+        layout.addLayout(button_layout)
+
+    def choose_file(self):
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, 'Select Input File', '',
+            'Excel Files (*.xlsx *.xls);;PDF Files (*.pdf);;All Files (*.*)'
+        )
+        if file_name:
+            self.file_path.setText(file_name)
+
+    def generate_certificate_number(self):
+        if not self.include_number.isChecked():
+            return ''
+        number = f"SIS-{datetime.now().year}-{self.certificate_number:04d}"
+        self.certificate_number += 1
+        return number
+
+    def create_certificate_html(self, student_name, award_type, signatory_name,
+                              signatory_position, award_date, cert_number=''):
+        # Load the certificate HTML template
+        with open('certificate_template.html', 'r') as file:
+            template = file.read()
+
+        # Replace placeholders
+        certificate = template.replace('[Student Name]', student_name)
+        certificate = certificate.replace('[Award Type]', award_type)
+        certificate = certificate.replace('[Signatory Name]', signatory_name)
+        certificate = certificate.replace('[Position]', signatory_position)
+        certificate = certificate.replace('[Date]', award_date)
+
+        if cert_number:
+            certificate = certificate.replace('Certificate No: SIS-2024-[XXXX]',
+                                           f'Certificate No: {cert_number}')
+        else:
+            # Remove the certificate number line if not included
+            certificate = certificate.replace(
+                '<div class="serial-number">Certificate No: SIS-2024-[XXXX]</div>',
+                ''
+            )
+
+        return certificate
+
+    def save_certificate(self, html_content, student_name):
+        # Create Cert directory if it doesn't exist
+        os.makedirs('Cert', exist_ok=True)
+
+        # Create safe filename
+        safe_name = ''.join(c for c in student_name if c.isalnum() or c in (' ', '-', '_'))
+        filename = f"{self.certificate_number-1:03d}_{safe_name}"
+
+        # Check for duplicates and add initials if needed
+        base_path = os.path.join('Cert', filename)
+        final_path = base_path
+        counter = 1
+        while os.path.exists(f"{final_path}.pdf"):
+            name_parts = safe_name.split()
+            if len(name_parts) > 1:
+                initials = ''.join(part[0] for part in name_parts)
+                final_path = f"{base_path}_{initials}_{counter}"
+            else:
+                final_path = f"{base_path}_{counter}"
+            counter += 1
+
+        # Save HTML to PDF
+        pdf_path = f"{final_path}.pdf"
+        pdfkit.from_string(html_content, pdf_path)
+        return pdf_path
+
+    def generate_single_certificate(self):
+        try:
+            # Get values from input fields
+            student_name = self.student_name.text()
+            award_type = self.award_type.currentText()
+            signatory_name = self.signatory_name.text()
+            signatory_position = self.signatory_position.text()
+            award_date = self.award_date.text()
+
+            # Validate inputs
+            if not all([student_name, award_type, signatory_name,
+                       signatory_position, award_date]):
+                QMessageBox.warning(self, 'Input Error',
+                                  'Please fill in all fields.')
+                return
+
+            # Generate certificate number if enabled
+            cert_number = self.generate_certificate_number()
+
+            # Create certificate HTML
+            html_content = self.create_certificate_html(
+                student_name, award_type, signatory_name,
+                signatory_position, award_date, cert_number
+            )
+
+            # Save certificate
+            pdf_path = self.save_certificate(html_content, student_name)
+
+            QMessageBox.information(
+                self, 'Success',
+                f'Certificate generated successfully!\nSaved as: {pdf_path}'
+            )
+
+        except Exception as e:
+            QMessageBox.critical(self, 'Error', f'An error occurred: {str(e)}')
+
+    def generate_batch_certificates(self):
+        try:
+            file_path = self.file_path.text()
+            if not file_path:
+                QMessageBox.warning(self, 'Input Error',
+                                  'Please select an input file.')
+                return
+
+            if file_path.lower().endswith(('.xlsx', '.xls')):
+                df = pd.read_excel(file_path)
+            elif file_path.lower().endswith('.pdf'):
+                # Add PDF processing logic here
+                QMessageBox.warning(
+                    self, 'PDF Processing',
+                    'PDF processing is not implemented in this demo.'
+                )
+                return
+            else:
+                QMessageBox.warning(
+                    self, 'Input Error',
+                    'Unsupported file format. Please use Excel or PDF.'
+                )
+                return
+
+            # Process each row
+            for _, row in df.iterrows():
+                html_content = self.create_certificate_html(
+                    row['Student Name'],
+                    row['Award Type'],
+                    self.signatory_name.text(),
+                    self.signatory_position.text(),
+                    self.award_date.text(),
+                    self.generate_certificate_number()
+                )
+                self.save_certificate(html_content, row['Student Name'])
+
+            QMessageBox.information(
+                self, 'Success',
+                f'Generated {len(df)} certificates in the Cert directory!'
+            )
+
+        except Exception as e:
+            QMessageBox.critical(self, 'Error', f'An error occurred: {str(e)}')
+
+def main():
+    app = QApplication(sys.argv)
+    ex = CertificateGenerator()
+    ex.show()
+    sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()

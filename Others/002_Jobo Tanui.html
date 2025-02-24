@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .certificate {
+            width: 800px;
+            padding: 40px;
+            text-align: center;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+        }
+        
+        .school-name {
+            color: #0066ff;
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        .certificate-title {
+            color: #0066ff;
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+        
+        .awarded-text {
+            color: #0066ff;
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        
+        .recipient-name {
+            font-size: 32px;
+            margin: 20px 0;
+            color: #000;
+            font-weight: normal;
+        }
+        
+        .award-text {
+            color: #0066ff;
+            font-size: 24px;
+            line-height: 1.6;
+            margin: 20px 0;
+            margin-bottom: 60px; /* Added more space before the footer */
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            margin-top: 40px; /* Added space after the award text */
+        }
+        
+        .signatory-details {
+            text-align: left;
+            color: #0066ff;
+        }
+        
+        .signatory-name {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .signatory-position {
+            margin: 0;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        
+        .date {
+            text-align: right;
+            color: #0066ff;
+            font-size: 18px;
+        }
+        
+        .date sup {
+            font-size: 12px;
+        }
+
+        /* New container for content spacing */
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 600px; /* Adjust this value to control overall spacing */
+            justify-content: space-between;
+        }
+
+        .header-section {
+            margin-bottom: 20px;
+        }
+
+        .main-content {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="content-container">
+            <div class="header-section">
+                <h1 class="school-name">Sandford International School</h1>
+                <h2 class="certificate-title">Head of Year 7 Commendation</h2>
+            </div>
+
+            <img src="[SCHOOL_LOGO_URL]" alt="Sandford International School Logo" class="school-logo">
+
+            <div class="main-content">
+                <p class="awarded-text">certificate is awarded to</p>
+                <h2 class="recipient-name">[STUDENT_NAME]</h2>
+                <p class="award-text">Awarded for demonstrating unwavering resilience, dedication, and care,<br>
+                embodying the core values of our school</p>
+            </div>
+
+            <div class="footer">
+                <div class="signatory-details">
+                    <p class="signatory-name">[SIGNATORY_NAME]</p>
+                    <p class="signatory-position">[SIGNATORY_POSITION]</p>
+                </div>
+                <div class="date">
+                    Issued on [DATE]<sup>th</sup>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

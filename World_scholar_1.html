@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;600;700&display=swap');
+    
+    body {
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(45deg, #f0f2f5, #e6e9ed);
+    }
+    
+    .certificate {
+      width: 1123px;
+      height: 794px;
+      background: #ffffff;
+      padding: 48px;
+      box-sizing: border-box;
+      position: relative;
+      font-family: 'Montserrat', sans-serif;
+      color: #1a365d;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+    
+    .background-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 50% 50%, rgba(0,85,164,0.03) 0%, transparent 60%),
+        linear-gradient(45deg, rgba(0,85,164,0.02) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0,85,164,0.02) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(0,85,164,0.02) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(0,85,164,0.02) 75%);
+      background-size: 100% 100%, 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+      opacity: 0.7;
+    }
+    
+    .decorative-border {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      border: 2px solid #0055a4;
+      border-radius: 2px;
+      background: 
+        linear-gradient(to right, transparent 0%, rgba(0,85,164,0.1) 50%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, rgba(0,85,164,0.1) 50%, transparent 100%);
+    }
+    
+    .inner-border {
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      border: 1px solid rgba(0,85,164,0.2);
+      border-radius: 1px;
+    }
+    
+    .corner-ornament {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,0 L100,0 L100,10 C50,10 10,50 10,100 L0,100 Z' fill='%230055a4' opacity='0.1'/%3E%3C/svg%3E");
+      background-size: contain;
+    }
+    
+    .corner-ornament.top-left { top: 0; left: 0; }
+    .corner-ornament.top-right { top: 0; right: 0; transform: rotate(90deg); }
+    .corner-ornament.bottom-left { bottom: 0; left: 0; transform: rotate(-90deg); }
+    .corner-ornament.bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
+    
+    .logo {
+      width: 130px;
+      height: 130px;
+      margin: 20px auto 30px;
+      display: block;
+      object-fit: contain;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      border: 2px solid rgba(0,85,164,0.1);
+      position: relative;
+    }
+    
+    .logo::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 1px solid rgba(0,85,164,0.2);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.5; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .header::after {
+      content: '';
+      display: block;
+      width: 250px;
+      height: 3px;
+      background: linear-gradient(to right, 
+        transparent, 
+        rgba(0,85,164,0.2), 
+        #0055a4, 
+        rgba(0,85,164,0.2), 
+        transparent
+      );
+      margin: 15px auto 0;
+    }
+    
+    .school-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #0055a4;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0,85,164,0.1);
+    }
+    
+    .certificate-title {
+      font-size: 24px;
+      color: #1a365d;
+      margin: 15px 0;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      font-weight: 300;
+    }
+    
+    .content-wrapper {
+      text-align: center;
+      margin: 40px 0;
+      position: relative;
+    }
+    
+    .content-wrapper::before,
+    .content-wrapper::after {
+      content: '❧';
+      font-size: 24px;
+      color: rgba(0,85,164,0.3);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .content-wrapper::before { top: -20px; }
+    .content-wrapper::after { bottom: -40px; }
+    
+    .presented-to {
+      font-size: 20px;
+      color: #4a5568;
+      margin: 0;
+      font-style: italic;
+    }
+    
+    .recipient-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 54px;
+      color: #0055a4;
+      margin: 20px 0;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+      text-shadow: 2px 2px 3px rgba(0, 85, 164, 0.1);
+    }
+    
+    .recipient-name::after {
+      content: '';
+      position: absolute;
+      left: -20px;
+      right: -20px;
+      bottom: -10px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #0055a4, transparent);
+    }
+    
+    .award-text {
+      font-size: 20px;
+      color: #4a5568;
+      margin: 20px 0 10px;
+    }
+    
+    .award-type {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      color: #1a365d;
+      font-weight: 600;
+      display: block;
+      margin: 10px 0 30px;
+      position: relative;
+    }
+    
+    .award-type::before,
+    .award-type::after {
+      content: '•';
+      color: #0055a4;
+      font-size: 24px;
+      margin: 0 10px;
+      opacity: 0.5;
+    }
+    
+    .footer {
+      position: absolute;
+      bottom: 100px;
+      left: 48px;
+      right: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    
+    .signature-section {
+      text-align: center;
+      flex: 1;
+      margin: 0 40px;
+      position: relative;
+    }
+    
+    .signature-line {
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #0055a4, transparent);
+      margin: 0 auto 12px;
+    }
+    
+    .signatory-details {
+      text-align: center;
+    }
+    
+    .signatory-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      margin: 0;
+      font-weight: 600;
+      color: #1a365d;
+    }
+    
+    .signatory-title {
+      font-size: 14px;
+      margin: 5px 0 0;
+      color: #4a5568;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .date-section {
+      text-align: center;
+      position: relative;
+      padding: 10px 20px;
+      background: rgba(0,85,164,0.05);
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+    
+    .date-line {
+      font-style: italic;
+      color: #4a5568;
+      margin: 0;
+    }
+    
+    .serial-number {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: #4a5568;
+      font-family: 'Montserrat', sans-serif;
+      background: rgba(0, 85, 164, 0.05);
+      padding: 6px 15px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      border: 1px solid rgba(0,85,164,0.1);
+    }
+    
+    .decorative-seal {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      width: 120px;
+      height: 120px;
+      background: url('/api/placeholder/120/120') center/contain no-repeat;
+      opacity: 0.8;
+      transform: rotate(-15deg);
+    }
+    
+    .laurel-left,
+    .laurel-right {
+      position: absolute;
+      width: 100px;
+      height: 200px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.1;
+    }
+    
+    .laurel-left {
+      left: 60px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath d='M80,100 Q100,50 80,0 Q60,50 80,100' stroke='%230055a4' fill='none' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+    
+    .laurel-right {
+      right: 60px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath d='M20,100 Q0,50 20,0 Q40,50 20,100' stroke='%230055a4' fill='none' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate">
+    <div class="background-pattern"></div>
+    <div class="decorative-border"></div>
+    <div class="inner-border"></div>
+    <div class="corner-ornament top-left"></div>
+    <div class="corner-ornament top-right"></div>
+    <div class="corner-ornament bottom-left"></div>
+    <div class="corner-ornament bottom-right"></div>
+    <div class="laurel-left"></div>
+    <div class="laurel-right"></div>
+    
+    <img src="file:///C:/Users/HP/Documents/Projetcs/Cert_gen/Assets/logo.png" 
+         alt="Sandford International School Logo" 
+         class="logo" />
+    
+    <div class="header">
+      <h1 class="school-name">Sandford International School</h1>
+      <h2 class="certificate-title">Certificate of Achievement</h2>
+    </div>
+    
+    <div class="content-wrapper">
+      <p class="presented-to">This is to certify that</p>
+      <h2 class="recipient-name">[Student Name]</h2>
+      <p class="award-text">has demonstrated outstanding achievement in</p>
+      <span class="award-type">[Award Type]</span>
+    </div>
+    
+    <div class="footer">
+      <div class="signature-section">
+        <div class="signature-line"></div>
+        <div class="signatory-details">
+          <p class="signatory-name">[Signatory Name]</p>
+          <p class="signatory-title">[Position]</p>
+        </div>
+      </div>
+      
+      <div class="date-section">
+        <p class="date-line">Awarded on [Date]</p>
+      </div>
+    </div>
+    
+    <div class="decorative-seal"></div>
+    <div class="serial-number">Certificate No: SIS-2024-[XXXX]</div>
+  </div>
+</body>
+</html>

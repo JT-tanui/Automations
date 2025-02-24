@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            width: 100%;
+            padding: 0;  /* Remove any padding */
+        }
+        
+        .certificate {
+            width: 1200px;  /* Increased width */
+            height: 800px;  /* Fixed height for A4 landscape */
+            padding: 20px;  /* Reduced padding */
+            text-align: center;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 0 auto;  /* Center the certificate */
+            transform: translateX(-20px);  /* Slight left adjustment */
+        }
+        
+        .school-logo {
+            width: 180px;  /* Adjust logo size but keep it proportional */
+            height: 180px; 
+            margin: 10px auto;
+            object-fit: contain;
+            background: transparent;
+        }
+        
+        .school-name {
+            color: #0066ff;
+            font-size: 58px;  /* Increased from 48px */
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        .certificate-title {
+            color: #0066ff;
+            font-size: 43px;  /* Increased from 36px */
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+        
+        .awarded-text {
+            color: #0066ff;
+            font-size: 29px;  /* Increased from 24px */
+            margin: 20px 0;
+        }
+        
+        .recipient-name {
+            font-size: 38px;  /* Increased from 32px */
+            margin: 20px 0;
+            color: #000;
+            font-weight: normal;
+        }
+        
+        .award-text {
+            color: #0066ff;
+            font-size: 29px;  /* Increased from 24px */
+            line-height: 1.6;
+            margin: 20px 0;
+            margin-bottom: 60px;  /* Reduced from 100px */
+        }
+        
+        .footer {
+            position: relative;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 100px;
+            align-items: flex-start; /* Changed from flex-end to flex-start */
+        }
+        
+        .signatory-details {
+            text-align: left;
+            color: #0066ff;
+            min-width: 200px;  /* Added minimum width */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative; /* Add position relative */
+            padding-top: 30px; /* Add space for the line */
+        }
+        
+        .signatory-name {
+            margin: 0;
+            font-size: 24px;  /* Increased from 20px */
+        }
+        
+        .signatory-position {
+            margin: 0;
+            font-size: 22px;  /* Increased from 18px */
+            margin-top: 5px;
+        }
+        
+        .date {
+            text-align: right;
+            color: #0066ff;
+            font-size: 22px;  /* Increased from 18px */
+            min-width: 200px;  /* Added minimum width */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            position: relative; /* Add position relative */
+            padding-top: 30px; /* Add space for the line */
+        }
+        
+        .date sup {
+            font-size: 12px;
+        }
+
+        .signatory-details::before,
+        .date::before {
+            content: '';
+            display: block;
+            width: 200px;
+            height: 1px;
+            background: #0066ff;
+            margin-bottom: 10px;
+            position: absolute; /* Position the lines absolutely */
+            top: 0; /* Place at the top */
+        }
+
+        .signatory-details::before {
+            left: 0; /* Align to left */
+        }
+
+        .date::before {
+            right: 0; /* Align to right */
+        }
+
+        /* New container for content spacing */
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;  /* Fill entire certificate height */
+            justify-content: space-between;
+            max-width: 1100px;  /* Increased max-width */
+            margin: 0 auto;
+            padding: 20px 0;  /* Add vertical padding */
+        }
+
+        .header-section {
+            margin-bottom: 10px;  /* Reduce some vertical margins */
+        }
+
+        .main-content {
+            flex-grow: 1;  /* Allow content to fill available space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;  /* Center content vertically */
+            margin: 30px 0;  /* Adjusted margin */
+        }
+
+        .serial-number {
+            font-size: 14px;  /* Added explicit size for serial number */
+            color: #666;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            left: 0;  /* Reset left position */
+            transform: none;  /* Remove transform */
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="content-container">
+            <div class="header-section">
+                <h1 class="school-name">Sandford International School</h1>
+                <h2 class="certificate-title">Head of Year 7 Commendation</h2>
+            </div>
+
+            <img src="C:\Users\HP\Documents\Projetcs\Cert_gen\Assets\logo.png" 
+                 alt="Sandford International School Logo" 
+                 class="school-logo">
+
+            <div class="main-content">
+                <p class="awarded-text">This Certificate is Awarded to</p>
+                <h2 class="recipient-name">Job Kiprotich Busienei</h2>
+                <p class="award-text">For Outstanding Achievement in<br>Perfect Attendance Award</p>
+            </div>
+
+            <div class="footer">
+                <div class="signatory-details">
+                    <p class="signatory-name">Miss Mercy</p>
+                    <p class="signatory-position">Head Of Department</p>
+                </div>
+                <div class="date">
+                    Awarded on 23 February 2025
+                </div>
+            </div>
+            
+            <div class="serial-number">Certificate No: SIS-2025-0001</div>
+        </div>
+    </div>
+</body>
+</html>
