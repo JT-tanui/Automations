@@ -1,198 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Sandford International School Certificate</title>
     <style>
-        @page {
-            size: A4 landscape;
-            margin: 0;
-        }
-
         body {
-            font-family: Calibri, sans-serif;
-            width: 297mm;
-            height: 210mm;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            width: 297mm; /* A4 width */
+            height: 210mm; /* A4 height */
             display: flex;
             justify-content: center;
             align-items: center;
-            background: white;
         }
 
         .certificate {
             width: 100%;
             height: 100%;
-            padding: 40px;
-            text-align: center;
-            background: white;
             position: relative;
+            text-align: center;
+            padding: 40px;
             box-sizing: border-box;
         }
 
-        .content-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .border {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            border: 2px solid #0066ff;
+            border-radius: 4px;
         }
 
-        .header-section {
-            margin-bottom: 10px;
+        .inner-border {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px solid rgba(0,102,255,0.2);
+            border-radius: 2px;
+            padding: 40px;
+        }
+
+        /* Adjust content positioning */
+        .cert-number {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            font-size: 14px;
+            color: #666;
         }
 
         .school-name {
+            font-size: 48px;
             color: #0066ff;
-            font-size: 58px;
             margin-bottom: 10px;
-            font-weight: normal;
         }
-
-        .certificate-title {
+        .subtitle {
+            font-size: 36px;
             color: #0066ff;
-            font-size: 43px;
-            margin-bottom: 20px;
-            font-weight: normal;
+            margin-bottom: 30px;
         }
-
-        .school-logo {
-            width: 180px;
-            height: 180px;
-            margin: 10px auto;
-            object-fit: contain;
-            background: transparent;
+        .logo {
+            width: 150px;
+            margin: 20px auto;
         }
-
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin: 30px 0;
+        .logo img {
+            width: 100%;
+            height: auto;
         }
-
         .awarded-text {
-            color: #0066ff;
-            font-size: 29px;
+            font-size: 24px;
+			color: #0066ff;
             margin: 20px 0;
         }
-
-        .recipient-name {
-            font-size: 38px;
+        .student-name {
+            font-size: 36px;
             margin: 20px 0;
-            color: #000;
-            font-weight: normal;
+            font-weight: bold;
         }
-
         .award-text {
+            font-size: 24px;
             color: #0066ff;
-            font-size: 29px;
-            line-height: 1.6;
-            margin: 20px 0;
-            margin-bottom: 60px;
+            margin: 20px auto;
+            max-width: 80%;
+            line-height: 1.4;
         }
-
-        .footer {
-            position: relative;
+        .signature-section {
             display: flex;
             justify-content: space-between;
-            padding: 0 100px;
-            margin-top: auto;
+            margin-top: 60px;
+            padding: 0 40px;
         }
-
-        .signatory-details,
-        .date {
-            position: relative;
-            min-width: 200px;
-            padding-top: 30px;
-            color: #0066ff;
-        }
-
-        .signatory-details {
+        .signature {
             text-align: left;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            margin-top: 60px;
+            margin-bottom: -60px;
         }
-
+        .signature-line {
+            width: 200px;
+            border-top: 1px solid #0066ff;
+            margin-bottom: 5px;
+        }
+        .signatory-name {
+            color: #0066ff;
+            font-weight: 500;
+        }
+        .position {
+            color: #0066ff;
+			font-size: 12px;
+			font-weight: 400;
+        }
         .date {
             text-align: right;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            margin-top: 20px;
         }
-
-        .signatory-name {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .signatory-position {
-            margin: 0;
-            font-size: 22px;
-            margin-top: 5px;
-        }
-
-        .signatory-details::before,
-        .date::before {
-            content: '';
+        .cert-number {
             position: absolute;
-            top: 0;
-            width: 200px;
-            height: 1px;
-            background: #0066ff;
-        }
-
-        .signatory-details::before {
-            left: 0;
-        }
-
-        .date::before {
-            right: 0;
-        }
-
-        .serial-number {
+            top: 20px;
+            right: 20px;
             font-size: 14px;
             color: #666;
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            left: 0;
         }
     </style>
 </head>
 <body>
     <div class="certificate">
-        <div class="content-container">
-            <div class="header-section">
+        <div class="border">
+            <div class="inner-border">
+                <!-- Certificate Number -->
+                <div class="cert-number">SIS-2024-[XXXX]</div>
+                    
                 <h1 class="school-name">Sandford International School</h1>
-                <h2 class="certificate-title">Head of Year 7 Commendation</h2>
-            </div>
-
-            <img src="C:\Users\HP\Documents\Projetcs\Cert_gen\Assets\logo.png" 
-                 alt="Sandford International School Logo" 
-                 class="school-logo">
-
-            <div class="main-content">
-                <p class="awarded-text">This Certificate is Awarded to</p>
-                <h2 class="recipient-name">[Student Name]</h2>
-                <p class="award-text">For Outstanding Achievement in<br>[Award Type]</p>
-            </div>
-
-            <div class="footer">
-                <div class="signatory-details">
-                    <p class="signatory-name">[Signatory Name]</p>
-                    <p class="signatory-position">[Position]</p>
+                <h2 class="subtitle">Head Of Year 7 Commendation</h2>
+                    
+                <div class="logo">
+                    <img src="C:\Users\HP\Documents\Projetcs\Cert_gen\Assets\logo.png" alt="School Logo">
                 </div>
-                <div class="date">
-                    Awarded on [Date]
-                </div>
-            </div>
             
-            <div class="serial-number">Certificate No: SIS-2024-[XXXX]</div>
+                <p class="awarded-text">This Certificate is Awarded to</p>
+                
+                <div class="student-name">[Student Name]</div>
+            
+                <p class="award-text">
+                    Awarded for <br>[Award Type]
+                </p>
+            
+                <div class="signature-section">
+                    <div class="signature">
+                        <div class="signature-line"></div>
+                        <div class="signatory-name">[Signatory Name]</div>
+                        <div class="position">[Position]</div>
+                    </div>
+                    <div class="date">Awarded on [Date]</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

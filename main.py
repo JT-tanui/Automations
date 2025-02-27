@@ -429,7 +429,7 @@ class CertificateGenerator(QMainWindow):
                 # Add more options as needed
                 'dpi': 300,
                 'no-outline': None,
-                'zoom': 1.4
+                'zoom': 1.1
 
             }
 

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Baskerville', 'Garamond', serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            /* background-color: #f8f8f81c; */
+            /* Ensure proper centering and scaling */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .certificate-container {
+            width: 800px;
+            height: 600px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 6px solid #002e5d;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            /* Correct A4 Landscape dimensions */
+            width: 297mm;
+            height: 210mm;
+            margin: 0 auto;
+            position: relative;
+            
+            /* Primary background setup - Using placeholder image */
+            background-image: url('Assets/certificate-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 30px;
+        }
+        /* Adjust background overlay to be more transparent */
+        .certificate-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.5),
+                rgba(249, 247, 242, 0.5)
+            );
+            z-index: 1;
+        }
+        /* Ensure content appears above background */
+        .inner-border,
+        .corner-embellishment,
+        .header,
+        .title,
+        .content,
+        .logo,
+        .signature-container,
+        .wax-seal {
+            position: relative;
+            z-index: 2;
+        }
+        .inner-border {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid #c5b358;
+        }
+        .corner-embellishment {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+        }
+        .top-left {
+            top: 20px;
+            left: 20px;
+            border-top: 3px solid #c5b358;
+            border-left: 3px solid #c5b358;
+        }
+        .top-right {
+            top: 20px;
+            right: 20px;
+            border-top: 3px solid #c5b358;
+            border-right: 3px solid #c5b358;
+        }
+        .bottom-left {
+            bottom: 20px;
+            left: 20px;
+            border-bottom: 3px solid #c5b358;
+            border-left: 3px solid #c5b358;
+        }
+        .bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-bottom: 3px solid #c5b358;
+            border-right: 3px solid #c5b358;
+        }
+        .header {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #002e5d;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #002e5d;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .content {
+            margin: 15px 0;
+            font-size: 18px;
+            line-height: 1.4;
+            color: #333;
+        }
+        .student-name {
+            font-size: 32px;
+            font-weight: bold;
+            border-bottom: 2px solid #c5b358;
+            display: inline-block;
+            min-width: 350px;
+            margin: 15px 0;
+            color: #002e5d;
+            padding: 3px 10px;
+        }
+        .date {
+            margin: 12px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .signature-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .signature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 180px;
+        }
+        .signature-line {
+            border-top: 1px solid #002e5d;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .signature-title {
+            font-size: 14px;
+            color: #555;
+        }
+        .logo {
+            margin: 5px auto 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo-emblem {
+            font-size: 34px;
+            color: #c5b358;
+            margin-bottom: 5px;
+        }
+        .logo-text {
+            font-size: 14px;
+            color: #002e5d;
+            letter-spacing: 2px;
+        }
+        .year-level {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 16px;
+            color: #002e5d;
+            font-weight: bold;
+            border: 1px solid #c5b358;
+            padding: 4px 12px;
+            border-radius: 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        .wax-seal {
+            position: absolute;
+            bottom: 85px;
+            right: 105px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #c5b358, #a08c3e);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            font-family: "Times New Roman", serif;
+            transform: rotate(-15deg);
+            border: 1px solid #7a692e;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="inner-border"></div>
+        <div class="corner-embellishment top-left"></div>
+        <div class="corner-embellishment top-right"></div>
+        <div class="corner-embellishment bottom-left"></div>
+        <div class="corner-embellishment bottom-right"></div>
+        <div class="year-level">Year 7</div>
+        
+        <div class="logo">
+            <div class="logo-emblem">✦</div>
+            <div class="logo-text">STANFORD INTERNATIONAL SCHOOLS</div>
+        </div>
+        
+        <div class="header">Certificate of Distinguished Participation</div>
+        <div class="title">World Scholars</div>
+        <div class="subtitle">Global Excellence Programme</div>
+        
+        <div class="content">This certifies that</div>
+        <div class="student-name">[Student Name]</div>
+        <div class="content">
+            <p class="award-text">
+                Awarded for <br>[Award Type]
+            </p>
+        </div>
+        
+        <div class="date">Conferred on <span>[Date]</span></div>
+        
+        <div class="signature-container">
+            <div class="signature">
+                <div class="signature-line"></div>
+                <div class="signature-title">
+                    <div class="signatory-name">[Signatory Name]</div>
+                </div>
+                <div class="signature-title">
+                    <div class="position">[Position]</div>
+                </div>
+            </div>
+            <div class="signature">
+                <div class="signature-line"></div>
+                <div class="signature-title">Head of School</div>
+            </div>
+        </div>
+        
+        <div class="wax-seal">
+            <img src="./Assets/medal-ribbon.png" alt="Medal with Ribbon" width="100">
+        </div>
+    </div>
+    
+    <script>
+        // Format the date in a more formal way
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.toLocaleString('en-US', { month: 'long' });
+        const year = today.getFullYear();
+        
+        // Add suffix to day
+        let suffix = "th";
+        if (day === 1 || day === 21 || day === 31) suffix = "st";
+        else if (day === 2 || day === 22) suffix = "nd";
+        else if (day === 3 || day === 23) suffix = "rd";
+        
+        document.getElementById('current-date').textContent = `${day}${suffix} day of ${month}, ${year}`;
+    </script>
+</body>
+</html>
